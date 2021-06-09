@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func initMongoServer(server string, port int) (*mongo.Client, context.Context) {
+func InitMongoServer(server string, port int) (*mongo.Client, context.Context) {
 	uri := "mongodb://" + server + ":" + fmt.Sprint(port)
 	log.Printf("Trying to connect to <%s>\n", uri)
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
