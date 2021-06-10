@@ -9,10 +9,15 @@ import (
 	"log"
 )
 
-func InitMongoServer(server string, port int) (*mongo.Client, context.Context) {
+func InitMongoServer(username, password, server string, port int) (*mongo.Client, context.Context) {
+	credential := options.Credential{
+		Username: username,
+		Password: password,
+	}
+
 	uri := "mongodb://" + server + ":" + fmt.Sprint(port)
 	log.Printf("Trying to connect to <%s>\n", uri)
-	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
+	client, err := mongo.NewClient(options.Client().ApplyURI(uri).SetAuth(credential))
 	if err != nil {
 		log.Println(err.Error())
 		panic(err)
