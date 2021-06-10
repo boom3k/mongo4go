@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
-	"time"
 )
 
 func InitMongoServer(server string, port int) (*mongo.Client, context.Context) {
@@ -19,7 +18,7 @@ func InitMongoServer(server string, port int) (*mongo.Client, context.Context) {
 		panic(err)
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx := context.Background()
 	err = client.Connect(ctx)
 	if err != nil {
 		log.Println(err.Error())
